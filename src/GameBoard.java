@@ -59,12 +59,12 @@ public class GameBoard
       }
       for(int i = 0; i < numBombs; i++)
       {
-         int r = (int) Math.random() * 8;
-         int c = (int) Math.random() * 8;
+         int r = (int) (Math.random() * 8);
+         int c = (int) (Math.random() * 8);
          while(tiles[r][c].hasBomb())  //placeholder
          {
-            r = (int) Math.random() * 8;
-            c = (int) Math.random() * 8;
+            r = (int) (Math.random() * 8);
+            c = (int) (Math.random() * 8);
          }
          tiles[r][c].addBomb(); //placeholder
          cellsWithBombs.add(tiles[r][c]);

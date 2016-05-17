@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="30245aa5-5b11-48f0-9895-9789a52d0a99" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameBoard.java" afterPath="$PROJECT_DIR$/src/GameBoard.java" />
-    </list>
+    <list default="true" id="30245aa5-5b11-48f0-9895-9789a52d0a99" name="Default" comment="" />
     <ignored path="Extreme-Minesweeper.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -41,8 +39,8 @@
       <file leaf-file-name="GameBoard.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/GameBoard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="583">
-              <caret line="45" column="43" selection-start-line="45" selection-start-column="43" selection-end-line="45" selection-end-column="43" />
+            <state relative-caret-position="636">
+              <caret line="46" column="37" selection-start-line="46" selection-start-column="37" selection-end-line="46" selection-end-column="37" />
               <folding>
                 <element signature="e#2711#2712#0" expanded="true" />
                 <element signature="e#2749#2750#0" expanded="true" />
@@ -511,8 +509,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/GameBoard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="583">
-          <caret line="45" column="43" selection-start-line="45" selection-start-column="43" selection-end-line="45" selection-end-column="43" />
+        <state relative-caret-position="636">
+          <caret line="46" column="37" selection-start-line="46" selection-start-column="37" selection-end-line="46" selection-end-column="37" />
           <folding>
             <element signature="e#2711#2712#0" expanded="true" />
             <element signature="e#2749#2750#0" expanded="true" />

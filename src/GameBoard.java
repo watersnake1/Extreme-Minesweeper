@@ -13,9 +13,6 @@ import java.awt.event.MouseListener;import java.lang.Override;
  */
 public class GameBoard
 {
-   private static boolean HAS_BOMB = true;
-   private static boolean BEEN_CLICKED = true;
-
    private JPanel GameBoardRootPanel;
    private JLabel square1;
    private ImageIcon unclickedCellIcon;
@@ -54,7 +51,7 @@ public class GameBoard
       {
          for(int c = 0; c < tiles[0].length; c++)
          {
-            tiles[r][c] = new Tile(!BEEN_CLICKED, !HAS_BOMB); //placeholder
+            tiles[r][c] = new Tile(r, c); //placeholder
          }
       }
       for(int i = 0; i < numBombs; i++)

@@ -41,9 +41,16 @@
       <file leaf-file-name="GameBoard.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/GameBoard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1261">
-              <caret line="67" column="10" selection-start-line="67" selection-start-column="10" selection-end-line="67" selection-end-column="10" />
-              <folding />
+            <state relative-caret-position="583">
+              <caret line="45" column="43" selection-start-line="45" selection-start-column="43" selection-end-line="45" selection-end-column="43" />
+              <folding>
+                <element signature="e#2711#2712#0" expanded="true" />
+                <element signature="e#2749#2750#0" expanded="true" />
+                <element signature="e#3183#3184#0" expanded="true" />
+                <element signature="e#3240#3241#0" expanded="true" />
+                <element signature="e#3392#3393#0" expanded="true" />
+                <element signature="e#3451#3452#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -407,7 +414,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#2711#2712#0" expanded="true" />
+            <element signature="e#2749#2750#0" expanded="true" />
+            <element signature="e#3183#3184#0" expanded="true" />
+            <element signature="e#3240#3241#0" expanded="true" />
+            <element signature="e#3392#3393#0" expanded="true" />
+            <element signature="e#3451#3452#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -433,7 +447,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#2711#2712#0" expanded="true" />
+            <element signature="e#2749#2750#0" expanded="true" />
+            <element signature="e#3183#3184#0" expanded="true" />
+            <element signature="e#3240#3241#0" expanded="true" />
+            <element signature="e#3392#3393#0" expanded="true" />
+            <element signature="e#3451#3452#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -459,7 +480,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#2711#2712#0" expanded="true" />
+            <element signature="e#2749#2750#0" expanded="true" />
+            <element signature="e#3183#3184#0" expanded="true" />
+            <element signature="e#3240#3241#0" expanded="true" />
+            <element signature="e#3392#3393#0" expanded="true" />
+            <element signature="e#3451#3452#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -483,9 +511,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/GameBoard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1261">
-          <caret line="67" column="10" selection-start-line="67" selection-start-column="10" selection-end-line="67" selection-end-column="10" />
-          <folding />
+        <state relative-caret-position="583">
+          <caret line="45" column="43" selection-start-line="45" selection-start-column="43" selection-end-line="45" selection-end-column="43" />
+          <folding>
+            <element signature="e#2711#2712#0" expanded="true" />
+            <element signature="e#2749#2750#0" expanded="true" />
+            <element signature="e#3183#3184#0" expanded="true" />
+            <element signature="e#3240#3241#0" expanded="true" />
+            <element signature="e#3392#3393#0" expanded="true" />
+            <element signature="e#3451#3452#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

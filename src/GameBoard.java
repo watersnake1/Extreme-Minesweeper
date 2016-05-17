@@ -13,10 +13,16 @@ import java.awt.event.MouseListener;import java.lang.Override;
  */
 public class GameBoard
 {
+   private static boolean HAS_BOMB = true;
+   private static boolean BEEN_CLICKED = true;
+
    private JPanel GameBoardRootPanel;
    private JLabel square1;
    private ImageIcon unclickedCellIcon;
    private ImageIcon clickedCellIcon;
+   private Tile[][] tiles;
+   private int numBombs;
+   private List<Tile> cellsWithBombs; //we need the cell class for this to work
 
    /**
     * The icons and labels are being created in the gameboard class for the sake of testing, normally there would
@@ -28,6 +34,10 @@ public class GameBoard
       unclickedCellIcon = new ImageIcon("images/UnclickedCell.png");
       clickedCellIcon = new ImageIcon("images/ClickedCell.png");
       square1 = new JLabel(unclickedCellIcon);
+
+      numBombs = 16; //sets the number of bombs
+      tiles = new Tile[8][8]; //sets the grid of squares
+      cellsWithBombs = new arrayList<Tile>;
    }
 
    /**
@@ -39,6 +49,26 @@ public class GameBoard
       GameBoardRootPanel.setLayout(new GridBagLayout());
       GameBoardRootPanel.add(square1);
       cellListeners();
+
+      for(int r = 0; r < tiles.length; r++)
+      {
+         for(int c = 0; c < tiles[0].length; c++)
+         {
+            tiles[r][c] = new Tile(!BEEN_CLICKED, !HAS_BOMB); //placeholder
+         }
+      }
+      for(int i = 0; i < numBombs; i++)
+      {
+         int r = (int) Math.random() * 8;
+         int c = (int) Math.random() * 8;
+         while(tiles[r][c].hasBomb())  //placeholder
+         {
+            r = (int) Math.random() * 8;
+            c = (int) Math.random() * 8;
+         }
+         tiles[r][c].addBomb(); //placeholder
+         cellsWithBombs.add(tiles[r][c]);
+      }
    }
 
    /**

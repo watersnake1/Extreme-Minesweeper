@@ -25,7 +25,7 @@ public class MainFrame
     public void createAndShowGUI()
     {
        gameBoard.setUp();
-	    mainFrame.setPreferredSize(new Dimension(500,500));
+        mainFrame.setPreferredSize(new Dimension(500,500));
        mainFrame.setResizable(false);
        mainFrame.add(gameBoard.getGameBoardRootPanel());
 	    mainFrame.setVisible(true);

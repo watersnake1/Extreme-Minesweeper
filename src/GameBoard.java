@@ -1,7 +1,9 @@
-import javax.swing.*;import javax.swing.ImageIcon;import javax.swing.JLabel;import javax.swing.JPanel;
+import javax.swing.*;
 import java.awt.*;
-import java.awt.GridBagLayout;import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;import java.lang.Override;
+import java.awt.GridBagLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.lang.Override;
 
 /**
  * Created by Christian on 5/15/16.
@@ -37,7 +39,7 @@ public class GameBoard
 
       numBombs = 16; //sets the number of bombs
       tiles = new Tile[8][8]; //sets the grid of squares
-      cellsWithBombs = new arrayList<Tile>;
+      cellsWithBombs = new ArrayList<Tile>();
    }
 
    /**

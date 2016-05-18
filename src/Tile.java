@@ -12,6 +12,7 @@ public class Tile
     private int r;
     private int c;
     private boolean isClicked;
+    private boolean isBomb;
     private ImageIcon unclickedCellIcon;
     private ImageIcon clickedCellIcon;
     private ImageIcon flaggedCellIcon;
@@ -29,6 +30,7 @@ public class Tile
         p = new JLabel(unclickedCellIcon);
         isClicked = false;
         isFlagged = false;
+        isBomb = false;
         this.r = r;
         this.c = c;
         hasBomb = false;
@@ -61,11 +63,30 @@ public class Tile
         {
         public void mouseClicked(MouseEvent e)
         {
-            p.setIcon(clickedCellIcon); 
+            
         }
         public void mousePressed(MouseEvent e)
         {
-            p.setIcon(flaggedCellIcon);
+            if(SwingUtilities.isLeftMouseButton(e) && isFlagged != true && hasBomb != true)
+            {
+                p.setIcon(clickedCellIcon);
+                isClicked = true;
+            }
+            else if(SwingUtilities.isRightMouseButton(e) && isFlagged != true && isClicked != true && isBomb != true)
+            {
+                p.setIcon(flaggedCellIcon);
+                isFlagged = true;
+            }
+            else if(SwingUtilities.isRightMouseButton(e) && isFlagged == true && isClicked != true)
+            {
+                p.setIcon(hoveredCellIcon);
+                isFlagged = false;
+            }
+            else if(SwingUtilities.isLeftMouseButton(e) && isFlagged != true && isClicked != true && hasBomb == true)
+            {
+                p.setIcon(bombedCellIcon);
+                isBomb = true;
+            }
         }
         public void mouseReleased(MouseEvent e)
         {
@@ -73,11 +94,19 @@ public class Tile
         }
         public void mouseEntered(MouseEvent e)
         {
-             p.setIcon(hoveredCellIcon);
+            if(isClicked != true && isFlagged != true && isBomb != true)
+            {
+                 p.setIcon(hoveredCellIcon);
+            }
+            
         }
         public void mouseExited(MouseEvent e)
-        {
-             p.setIcon(unclickedCellIcon);
+        {   
+            if(isClicked != true && isFlagged != true && isBomb != true)
+            {
+                p.setIcon(unclickedCellIcon);
+            }
+            
         }
     });
     }
@@ -130,10 +159,5 @@ public class Tile
     public int getColumn()
     {
         return c;
-    }
-    
-    public void addBomb()
-    {
-        hasBomb = true;
     }
 }

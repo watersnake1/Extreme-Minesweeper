@@ -12,7 +12,6 @@ public class Tile
     private int r;
     private int c;
     private boolean isClicked;
-    private boolean isBomb;
     private int number;
     private ImageIcon unclickedCellIcon;
     private ImageIcon clickedCellIcon;
@@ -48,7 +47,6 @@ public class Tile
         number = 0;
         isClicked = false;
         isFlagged = false;
-        isBomb = false;
         this.r = r;
         this.c = c;
         hasBomb = false;
@@ -57,10 +55,13 @@ public class Tile
     public static void main(String [] args)
     {
         Tile newTile = new Tile(2,3);
-        newTile.setNumber(2);
+        newTile.setNumber(1);
         newTile.setTile();
         newTile.clickListener();
-        
+        Tile newTile2 = new Tile(3,3);
+        newTile.addBomb();
+        newTile.setTile();
+        newTile.clickListener();     
     }
     
     public void setTile()
@@ -86,50 +87,38 @@ public class Tile
             }
             public void mousePressed(MouseEvent e)
             {
-                if(SwingUtilities.isLeftMouseButton(e) && isFlagged != true && hasBomb != true)
+                if(SwingUtilities.isLeftMouseButton(e))
                 {
-                    if(number == 0){p.setIcon(clickedCellIcon);}
-                    else if(number == 1){p.setIcon(oneCellIcon);}
-                    else if(number == 2){p.setIcon(twoCellIcon);}
-                    else if(number == 3){p.setIcon(threeCellIcon);}
-                    else if(number == 4){p.setIcon(fourCellIcon);}
-                    else if(number == 5){p.setIcon(fiveCellIcon);}
-                    else if(number == 6){p.setIcon(sixCellIcon);}
-                    else if(number == 7){p.setIcon(sevenCellIcon);}
-                    else if(number == 8){p.setIcon(eightCellIcon);}
-                    
-                    isClicked = true;
+                    show();
                 }
-                else if(SwingUtilities.isRightMouseButton(e) && isFlagged != true && isClicked != true && isBomb != true)
+                else if(SwingUtilities.isRightMouseButton(e) && !isFlagged && !isClicked)
                 {
                     p.setIcon(flaggedCellIcon);
                     isFlagged = true;
                 }
-                else if(SwingUtilities.isRightMouseButton(e) && isFlagged == true && isClicked != true)
+                else if(SwingUtilities.isRightMouseButton(e) && isFlagged && !isClicked)
                 {
                     p.setIcon(hoveredCellIcon);
                     isFlagged = false;
                 }
-                else if(SwingUtilities.isLeftMouseButton(e) && isFlagged != true && isClicked != true && hasBomb == true)
-                {
-                    p.setIcon(bombedCellIcon);
-                    isBomb = true;
-                }
             }
+            
             public void mouseReleased(MouseEvent e)
             {
            
             }
+
             public void mouseEntered(MouseEvent e)
             {
-                if(isClicked != true && isFlagged != true && isBomb != true)
+                if(!isClicked && !isFlagged)
                 {
                     p.setIcon(hoveredCellIcon);
                 }
             }
+
             public void mouseExited(MouseEvent e)
             {   
-                if(isClicked != true && isFlagged != true && isBomb != true)
+                if(!isClicked && !isFlagged)
                 {
                     p.setIcon(unclickedCellIcon);
                 }
@@ -139,42 +128,29 @@ public class Tile
     
     public void show()
     {
-        p.addMouseListener(new MouseListener()
+        if(!isFlagged)
         {
-            public void mouseClicked(MouseEvent e)
+            isClicked = true;
+            if(hasBomb)
             {
-                
+                p.setIcon(bombedCellIcon);
             }
-            public void mousePressed(MouseEvent e)
+            else
             {
-                if(SwingUtilities.isLeftMouseButton(e) && isFlagged != true)
+                switch(number)
                 {
-                    if(number == 0){p.setIcon(clickedCellIcon);}
-                    else if(number == 1){p.setIcon(oneCellIcon);}
-                    else if(number == 2){p.setIcon(twoCellIcon);}
-                    else if(number == 3){p.setIcon(threeCellIcon);}
-                    else if(number == 4){p.setIcon(fourCellIcon);}
-                    else if(number == 5){p.setIcon(fiveCellIcon);}
-                    else if(number == 6){p.setIcon(sixCellIcon);}
-                    else if(number == 7){p.setIcon(sevenCellIcon);}
-                    else if(number == 8){p.setIcon(eightCellIcon);}
-                    isClicked = true;
+                    case 1: p.setIcon(oneCellIcon); break;
+                    case 2: p.setIcon(twoCellIcon); break;
+                    case 3: p.setIcon(threeCellIcon); break;
+                    case 4: p.setIcon(fourCellIcon); break;
+                    case 5: p.setIcon(fiveCellIcon); break;
+                    case 6: p.setIcon(sixCellIcon); break;
+                    case 7: p.setIcon(sevenCellIcon); break;
+                    case 8: p.setIcon(eightCellIcon); break;
+                    default: p.setIcon(clickedCellIcon); break;
                 }
-                
             }
-            public void mouseReleased(MouseEvent e)
-            {
-                
-            }
-            public void mouseEntered(MouseEvent e)
-            {
-            
-            }
-            public void mouseExited(MouseEvent e)
-            { 
-               
-            }
-        });
+        }
     }
     
     public void setNumber(int number)

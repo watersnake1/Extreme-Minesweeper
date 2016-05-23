@@ -1,21 +1,21 @@
-import sun.applet.Main;
-
-import javax.swing.*;import javax.swing.JFrame;
-import java.awt.*;import java.awt.Dimension;import java.lang.String;
+i
+import javax.swing.JFrame;
+import java.awt.Dimension;
+import java.lang.String;
 
 /**
 *Jframe window class, should be run from a static class.
 *needs to contain a gameboard object to fill itself with.
 */
-public class MainFrame implements Runnable
+public class MainFrame
 {
     private JFrame mainFrame;
-    private static GameBoard gameBoard;
+    private GameBoard gameBoard;
 
     public MainFrame()
     {
-	   mainFrame = new JFrame("Extreme Minsweeper");
-	   gameBoard = new GameBoard();
+	mainFrame = new JFrame("Extreme Minsweeper");
+        gameBoard = new GameBoard();
     }
 	
     /**
@@ -24,35 +24,21 @@ public class MainFrame implements Runnable
     */
     public void createAndShowGUI()
     {
-       gameBoard.setUp();
+        gameBoard.setUp();
         mainFrame.setPreferredSize(new Dimension(500,500));
-       mainFrame.setResizable(false);
-       mainFrame.add(gameBoard.getGameBoardRootPanel());
-	    mainFrame.setVisible(true);
-	    mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    mainFrame.pack();
+        mainFrame.setResizable(false);
+        mainFrame.add(gameBoard.getGameBoardRootPanel());
+	mainFrame.setVisible(true);
+	mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	mainFrame.pack();
     }
 
-   public static void main(String[] args)
-   {
-      Thread mainStart = new Thread(new Runnable() {
-      	public void run() {
-      		tick();
-      	}
-      });
-      Thread ticker = new Thread(new MainFrame());
-      mainStart.start();
-      ticker.start();
-   }
-   
-   @Override
-   public void run()
-   {
-   	  MainFrame frame = new MainFrame();
-      frame.createAndShowGUI();
-   }
-   
-   public static void tick()
+    /**
+     * <bold>This method is not necessary for the screen to appear to be updating</bold>
+     * at with the current mouse event setup, but could be used later on for other components
+     * gets the gameboard panel and causes it to update itself infinitely
+     */
+   public void tick()
    {
    		boolean val = true;
    		while(val)
@@ -68,4 +54,10 @@ public class MainFrame implements Runnable
    		}
    		
    }
+
+    public static void main(String[] args)
+    {
+        MainFrame frame = new MainFrame();
+        frame.createAndShowGUI();
+    }
 }

@@ -87,28 +87,9 @@ public class Tile
             }
             public void mousePressed(MouseEvent e)
             {
-                if(SwingUtilities.isLeftMouseButton(e) && !isFlagged)
+                if(SwingUtilities.isLeftMouseButton(e))
                 {
-                    isClicked = true;
-                    if(hasBomb)
-                    {
-                        p.setIcon(bombedCellIcon);
-                    }
-                    else
-                    {
-                        switch(number)
-                        {
-                            case 1: p.setIcon(oneCellIcon); break;
-                            case 2: p.setIcon(twoCellIcon); break;
-                            case 3: p.setIcon(threeCellIcon); break;
-                            case 4: p.setIcon(fourCellIcon); break;
-                            case 5: p.setIcon(fiveCellIcon); break;
-                            case 6: p.setIcon(sixCellIcon); break;
-                            case 7: p.setIcon(sevenCellIcon); break;
-                            case 8: p.setIcon(eightCellIcon); break;
-                            default: p.setIcon(clickedCellIcon); break;
-                        }
-                    }
+                    show();
                 }
                 else if(SwingUtilities.isRightMouseButton(e) && !isFlagged && !isClicked)
                 {

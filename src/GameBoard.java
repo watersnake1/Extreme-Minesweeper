@@ -19,9 +19,9 @@ import java.util.ArrayList;
  */
 public class GameBoard
 {
-   private final int WIDTH = 8;
-   private final int HEIGHT = 8;
-   private final int NUM_BOMBS = 16;
+   private final int WIDTH = 8; //8
+   private final int HEIGHT = 8; //8
+   private final int NUM_BOMBS = 16; //16
    private JPanel GameBoardRootPanel;
    private Tile[][] tiles;
    private ArrayList<Tile> cellsWithBombs; //we need the cell class for this to work
@@ -37,8 +37,7 @@ public class GameBoard
 
       tiles = new Tile[HEIGHT][WIDTH]; //sets the grid of squares
       cellsWithBombs = new ArrayList<Tile>();
-      openCells = new ArrayList<Tile>();
-      
+      openCells = new ArrayList<Tile>();     
    }
 
    /**
@@ -47,15 +46,15 @@ public class GameBoard
     */
    public void setUp()
    {
-   	  GameBoardRootPanel.setPreferredSize(new Dimension(HEIGHT, WIDTH));
+   	GameBoardRootPanel.setPreferredSize(new Dimension(HEIGHT, WIDTH));
       GameBoardRootPanel.setLayout(new GridLayout(HEIGHT, WIDTH));
       
-
       for(int r = 0; r < tiles.length; r++)
       {
          for(int c = 0; c < tiles[0].length; c++)
          {
             tiles[r][c] = new Tile(r, c); //placeholder
+            tiles[r][c].clickListener();
             GameBoardRootPanel.add(tiles[r][c].getLabel());
          }
       }
@@ -83,41 +82,40 @@ public class GameBoard
 
    public void revealSpaces(int row, int col)
    {
-   	  tiles[row][col].show(); //add the show method to the Tile class.
-   	  openCells.add(tiles[row][col]);
-   	  if(tiles[row][col].getBomb())
-   	  	System.out.println("This code has yet to be implemented!");
+   	tiles[row][col].show(); //add the show method to the Tile class.
+   	openCells.add(tiles[row][col]);
+   	if(tiles[row][col].getBomb())
+   	System.out.println("This code has yet to be implemented!");
 
-   	  else if(numSurroundingBombs(row, col) == 0)
-   	  {
+   	else if(numSurroundingBombs(row, col) == 0)
+   	{
    	  	for(int r = Math.max(0, row - 1); r < Math.min(row + 1, HEIGHT); r++)
    	  	{
    	  		for(int c = Math.max(0, col - 1); c < Math.min(row + 1, WIDTH); c++)
    	  		{
    	  			if((r != row || c != col) && !tiles[r][c].getClicked()) // add the isOpen method to the Tile class.
-	  			{
-	  				revealSpaces(r,c);
-	  			}
+	  			   {
+	  				   revealSpaces(r,c);
+	  			   }
    	  		}
    	  	}
-   	  }
-
+   	}
    }
 
    public int numSurroundingBombs(int row, int col)
    {
-   	  int surroundingBombs = 0;
-   	  for(int r = Math.max(0, row - 1); r < Math.min(row + 1, HEIGHT); r++)
-   	  {
-	   	  	for(int c = Math.max(0, col - 1); c < Math.min(row + 1, WIDTH); c++)
-	  		{
+   	int surroundingBombs = 0;
+   	for(int r = Math.max(0, row - 1); r < Math.min(row + 1, HEIGHT); r++)
+   	{
+	    	for(int c = Math.max(0, col - 1); c < Math.min(row + 1, WIDTH); c++)
+	  	   {
 	  			if((r != row || c != col) && tiles[r][c].getBomb())
 	  			{
 	  				surroundingBombs++;
 	  			}
 	  		}
-  	  }
-  	  return surroundingBombs;
+  	   }
+  	   return surroundingBombs;
    }
 
    /**

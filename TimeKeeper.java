@@ -1,24 +1,31 @@
 import java.util.Timer;
 import java.util.TimerTask;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public class TimeKeeper
 {
     private static int secondPassed=0;
     private static String asString="";
+    private static JLabel label = new JLabel();
+    private static JFrame frame = new JFrame();
+    private static JPanel panel = new JPanel();
     
     Timer myTimer= new Timer();
     TimerTask task= new TimerTask()
     {
         public void run()
         {
-            while(secondPassed<1000)
-            {
-              secondPassed++;
-            }
             asString= String.valueOf(secondPassed);
-            System.out.println("Time: " + secondPassed);
+            //System.out.println("Time: " + secondPassed);
+            frame.setVisible(true);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.add(panel);
+            panel.add(label);
+            frame.pack();
+            label.setText("Time: " + secondPassed);
+            panel.updateUI();
+            
+            secondPassed++;
         }
     }; 
     public void start()
@@ -37,15 +44,14 @@ public class TimeKeeper
         secondPassed=0;
     }
     
+    public void printToLabel()
+    {
+    
+    }
+    
     public static void main(String[] args)
     {
-        TimeKeeper timePiece= new TimeKeeper();
-        JLabel timer= new JLabel();
-        
-        JPanel main = new JPanel();
-        
-        timer.setText(asString);
-        timer.setLocation(0,0);
-        main.add(timer);
+    	TimeKeeper keeper = new TimeKeeper();
+    	keeper.start();
     }
 }

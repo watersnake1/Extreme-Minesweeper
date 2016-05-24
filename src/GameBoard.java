@@ -1,14 +1,7 @@
 import javax.swing.*;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import java.awt.*;
-import java.awt.GridLayout;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.lang.Override;
 import java.util.ArrayList;
-
 /**
  * Created by Christian on 5/15/16.
  * This is just a preliminary version of what the full gameboard class would look like
@@ -21,7 +14,7 @@ public class GameBoard
 {
    private final int WIDTH = 8; //8
    private final int HEIGHT = 8; //8
-   private final int NUM_BOMBS = 16; //16
+   private final int NUM_BOMBS = 8; //16
    private JPanel GameBoardRootPanel;
    private Tile[][] tiles;
    private ArrayList<Tile> cellsWithBombs; //we need the cell class for this to work
@@ -74,7 +67,9 @@ public class GameBoard
       {
       	for(int c = 0; c < WIDTH; c++)
       	{
-      		//GameBoardRootPanel[r][c] = ; //this may not work, since it is a different object
+      		if(!tiles[r][c].getBomb())
+               tiles[r][c].setNumber(numSurroundingBombs(r,c));
+            //GameBoardRootPanel[r][c] = ; //this may not work, since it is a different object
       		GameBoardRootPanel.add(tiles[r][c].getLabel()); //check this. it probably won't work
       	}
       }
@@ -85,7 +80,7 @@ public class GameBoard
    	tiles[row][col].show(); //add the show method to the Tile class.
    	openCells.add(tiles[row][col]);
    	if(tiles[row][col].getBomb())
-   	System.out.println("This code has yet to be implemented!");
+   	  System.out.println("This code has yet to be implemented!");
 
    	else if(numSurroundingBombs(row, col) == 0)
    	{
@@ -105,9 +100,9 @@ public class GameBoard
    public int numSurroundingBombs(int row, int col)
    {
    	int surroundingBombs = 0;
-   	for(int r = Math.max(0, row - 1); r < Math.min(row + 1, HEIGHT); r++)
+   	for(int r = Math.max(0, row - 1); r < Math.min(row + 2, HEIGHT); r++)
    	{
-	    	for(int c = Math.max(0, col - 1); c < Math.min(row + 1, WIDTH); c++)
+	    	for(int c = Math.max(0, col - 1); c < Math.min(col + 2, WIDTH); c++)
 	  	   {
 	  			if((r != row || c != col) && tiles[r][c].getBomb())
 	  			{
@@ -116,6 +111,31 @@ public class GameBoard
 	  		}
   	   }
   	   return surroundingBombs;
+   }
+
+   public void checkNewClicks()
+   {
+      for(int r = 0; r < HEIGHT; r++)
+      {
+         for(int c = 0; c < WIDTH; c++)
+         {
+            if(tiles[r][c].getClicked())
+            {
+               System.out.println("this is working");
+               boolean inList = false;
+               for(Tile t : openCells)
+               {
+                  if(t.getColumn() == c && t.getRow() == r)
+                     inList = true;
+               }
+               if(!inList)
+               {
+                  revealSpaces(r,c);
+               }
+            }
+
+         }
+      }
    }
 
    /**

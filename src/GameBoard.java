@@ -49,42 +49,84 @@ public class GameBoard
    	GameBoardRootPanel.setPreferredSize(new Dimension(HEIGHT, WIDTH));
       GameBoardRootPanel.setLayout(new GridLayout(HEIGHT, WIDTH));
       
-      for(int r = 0; r < tiles.length; r++)
+      for(int r = 0; r < tiles.length; r++) //creates all the tiles on the board
       {
          for(int c = 0; c < tiles[0].length; c++)
          {
-            tiles[r][c] = new Tile(r, c); //placeholder
+            tiles[r][c] = new Tile(r, c);
             tiles[r][c].clickListener();
-            GameBoardRootPanel.add(tiles[r][c].getLabel());
+            GameBoardRootPanel.add(tiles[r][c].getLabel()); //this is necessary to make the tile visible on the actual board
          }
       }
+
       for(int i = 0; i < NUM_BOMBS; i++)
       {
-         int r = (int) (Math.random() * HEIGHT);
-         int c = (int) (Math.random() * WIDTH);
-         while(tiles[r][c].getBomb())  //placeholder
+         int r = (int) (Math.random() * HEIGHT); //find a random row position
+         int c = (int) (Math.random() * WIDTH); //find a random column position
+         while(tiles[r][c].getBomb())  //continues to calculate random positions until one without a bomb is found
          {
             r = (int) (Math.random() * HEIGHT);
             c = (int) (Math.random() * WIDTH);
          }
-         tiles[r][c].addBomb(); //placeholder
-         cellsWithBombs.add(tiles[r][c]);
+         tiles[r][c].addBomb(); //adds a bomb to this new position
+         cellsWithBombs.add(tiles[r][c]); //adds this tile to the ArrayList of tiles with bombs
       }
-      for(int r = 0; r < HEIGHT; r++)
+
+      for(int r = 0; r < HEIGHT; r++) //assigns the number of surrounding bombs to each tile
       {
       	for(int c = 0; c < WIDTH; c++)
       	{
       		if(!tiles[r][c].getBomb())
                tiles[r][c].setNumber(numSurroundingBombs(r,c));
-            //GameBoardRootPanel[r][c] = ; //this may not work, since it is a different object
-      		GameBoardRootPanel.add(tiles[r][c].getLabel()); //check this. it probably won't work
       	}
+      }
+
+      for(int r = 0; r < HEIGHT; r++) //adds the list of surrounding empty tiles to each empty tile
+      {
+         for(int c = 0; c < WIDTH; c++)
+         {
+            if(!tiles[r][c].getBomb())
+               tiles[r][c].addSurroundingEmptyTiles(findSurroundingEmptyTiles(r,c));
+
+            //GameBoardRootPanel[r][c] = ; //this may not work, since it is a different object
+            GameBoardRootPanel.add(tiles[r][c].getLabel()); //check this. it probably won't work
+         }
       }
    }
 
+   /**
+    * [intended to] find the empty spaces surrounding an empty space, so that when the player
+    * clicks on an empty space, all the spaces around it are revealed. This only partially works
+    * @param int row the row of the space being checked
+    * @param int col the colum of the spaces being checked
+    * @return the ArrayList of empty tiles surrounding the tile in question
+    */
+   private ArrayList<Tile> findSurroundingEmptyTiles(int row, int col)
+   {
+      ArrayList<Tile> surroundingEmptyTiles = new ArrayList<Tile>(); //creates an ArrayList to hold the empty tiles
+     
+      if(numSurroundingBombs(row, col) == 0) //checks if the tile's number is 0
+      {
+         for(int r = Math.max(0, row - 1); r < Math.min(row + 2, HEIGHT); r++) //goes through all adjacent tiles to check if they contain bombs
+         {
+            for(int c = Math.max(0, col - 1); c < Math.min(row + 2, WIDTH); c++)
+            {
+               if(!tiles[r][c].getBomb() && (r != row || c != col) /*&& !surroundingEmptyTiles.contains(tiles[r][c])*/) //if the tile does not have a bomb
+               {
+                  surroundingEmptyTiles.add(tiles[r][c]); //adds the tile to the list
+                  //if(numSurroundingBombs(r,c) == 0)
+                     //surroundingEmptyTiles.addAll(findSurroundingEmptyTiles(r,c));
+               }
+            }
+         }
+      }
+      return surroundingEmptyTiles;
+   }
+
+   //this class is not currently being used, ignore it
    public void revealSpaces(int row, int col)
    {
-   	tiles[row][col].show(); //add the show method to the Tile class.
+   	tiles[row][col].show();
    	openCells.add(tiles[row][col]);
    	if(tiles[row][col].getBomb())
    	  System.out.println("This code has yet to be implemented!");
@@ -95,7 +137,7 @@ public class GameBoard
    	  	{
    	  		for(int c = Math.max(0, col - 1); c < Math.min(row + 1, WIDTH); c++)
    	  		{
-   	  			if((r != row || c != col) && !tiles[r][c].getClicked()) // add the isOpen method to the Tile class.
+   	  			if((r != row || c != col) && !tiles[r][c].getClicked()) 
 	  			   {
 	  				   revealSpaces(r,c);
 	  			   }
@@ -104,6 +146,12 @@ public class GameBoard
    	}
    }
 
+   /**
+    * finds the number of spaces with bombs surrounding the position inputted
+    * @param int row the row of the space being checked
+    * @param int col the colum of the spaces being checked
+    * @return the number of adjacent tiles containing bombs
+    */
    public int numSurroundingBombs(int row, int col)
    {
    	int surroundingBombs = 0;
@@ -120,7 +168,8 @@ public class GameBoard
   	   return surroundingBombs;
    }
 
-   public void checkNewClicks()
+   //this is not currently used, ignore it.
+   public void checkNewClicks() 
    {
       for(int r = 0; r < HEIGHT; r++)
       {

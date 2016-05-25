@@ -4,6 +4,7 @@ import java.awt.event.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class Tile
 {
@@ -28,6 +29,7 @@ public class Tile
     private ImageIcon eightCellIcon;
     private JFrame tile;
     private JLabel p;
+    private ArrayList<Tile> surroundingEmptyTiles;
     public Tile(int r, int c)
     {
         unclickedCellIcon = new ImageIcon("../images/UnclickedCell.png");
@@ -50,6 +52,8 @@ public class Tile
         this.r = r;
         this.c = c;
         hasBomb = false;
+        surroundingEmptyTiles = new ArrayList<Tile>();
+        clickListener();
     }
     
     public static void main(String [] args)
@@ -59,11 +63,11 @@ public class Tile
         newTile.setTile();
         newTile.clickListener();
         Tile newTile2 = new Tile(3,3);
-        newTile.addBomb();
-        newTile.setTile();
-        newTile.clickListener();     
+        newTile2.addBomb();
+        newTile2.setTile();
+        newTile2.clickListener();     
     }
-    
+
     public void setTile()
     {
         tile = new JFrame("wow");
@@ -90,6 +94,7 @@ public class Tile
                 if(SwingUtilities.isLeftMouseButton(e))
                 {
                     show();
+                    openSurroundingEmptyTiles();
                 }
                 else if(SwingUtilities.isRightMouseButton(e) && !isFlagged && !isClicked)
                 {
@@ -208,8 +213,21 @@ public class Tile
         return r;
     }
     
-    public int getColumn()
+    public int getCol()
     {
         return c;
+    }
+
+    public void addSurroundingEmptyTiles(ArrayList<Tile> surroundingEmptyTiles)
+    {
+        this.surroundingEmptyTiles = surroundingEmptyTiles;
+    }
+
+    private void openSurroundingEmptyTiles()
+    {
+        for(Tile emptyTile : surroundingEmptyTiles)
+        {
+            emptyTile.show();
+        }
     }
 }

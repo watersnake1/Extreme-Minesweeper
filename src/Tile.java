@@ -4,6 +4,7 @@ import java.awt.event.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class Tile
 {
@@ -28,6 +29,7 @@ public class Tile
     private ImageIcon eightCellIcon;
     private JFrame tile;
     private JLabel p;
+    private ArrayList<Tile> surroundingEmptyTiles;
     public Tile(int r, int c)
     {
         unclickedCellIcon = new ImageIcon("../images/UnclickedCell.png");
@@ -50,8 +52,10 @@ public class Tile
         this.r = r;
         this.c = c;
         hasBomb = false;
+        surroundingEmptyTiles = new ArrayList<Tile>();
+        clickListener();
     }
-    
+
     public static void main(String [] args)
     {
         Tile newTile = new Tile(2,3);
@@ -59,73 +63,75 @@ public class Tile
         newTile.setTile();
         newTile.clickListener();
         Tile newTile2 = new Tile(3,3);
-        newTile.addBomb();
-        newTile.setTile();
-        newTile.clickListener();     
+        newTile2.addBomb();
+        newTile2.setTile();
+        newTile2.clickListener();     
     }
-    
+
     public void setTile()
     {
         tile = new JFrame("wow");
         tile.setSize(800, 800);
-        
+
         tile.setLayout(new GridBagLayout());
         p = new JLabel(unclickedCellIcon);
         tile.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+
         tile.add(p);
         tile.setVisible(true);
     }
-    
+
     public void clickListener()
     {
         p.addMouseListener(new MouseListener()
-        {
-            public void mouseClicked(MouseEvent e)
-            {  
-            
-            }
-            public void mousePressed(MouseEvent e)
             {
-                if(SwingUtilities.isLeftMouseButton(e))
-                {
-                    show();
-                }
-                else if(SwingUtilities.isRightMouseButton(e) && !isFlagged && !isClicked)
-                {
-                    p.setIcon(flaggedCellIcon);
-                    isFlagged = true;
-                }
-                else if(SwingUtilities.isRightMouseButton(e) && isFlagged && !isClicked)
-                {
-                    p.setIcon(hoveredCellIcon);
-                    isFlagged = false;
-                }
-            }
-            
-            public void mouseReleased(MouseEvent e)
-            {
-           
-            }
+                public void mouseClicked(MouseEvent e)
+                {  
 
-            public void mouseEntered(MouseEvent e)
-            {
-                if(!isClicked && !isFlagged)
-                {
-                    p.setIcon(hoveredCellIcon);
                 }
-            }
 
-            public void mouseExited(MouseEvent e)
-            {   
-                if(!isClicked && !isFlagged)
+                public void mousePressed(MouseEvent e)
                 {
-                    p.setIcon(unclickedCellIcon);
+                    if(SwingUtilities.isLeftMouseButton(e))
+                    {
+                        show();
+                        openSurroundingEmptyTiles();
+                    }
+                    else if(SwingUtilities.isRightMouseButton(e) && !isFlagged && !isClicked)
+                    {
+                        p.setIcon(flaggedCellIcon);
+                        isFlagged = true;
+                    }
+                    else if(SwingUtilities.isRightMouseButton(e) && isFlagged && !isClicked)
+                    {
+                        p.setIcon(hoveredCellIcon);
+                        isFlagged = false;
+                    }
                 }
-            }
-        });
+
+                public void mouseReleased(MouseEvent e)
+                {
+
+                }
+
+                public void mouseEntered(MouseEvent e)
+                {
+                    if(!isClicked && !isFlagged)
+                    {
+                        p.setIcon(hoveredCellIcon);
+                    }
+                }
+
+                public void mouseExited(MouseEvent e)
+                {   
+                    if(!isClicked && !isFlagged)
+                    {
+                        p.setIcon(unclickedCellIcon);
+                    }
+                }
+            });
     }
-    
+
     public void show()
     {
         if(!isFlagged)
@@ -152,64 +158,77 @@ public class Tile
             }
         }
     }
-    
+
     public void setNumber(int number)
     {
         this.number = number;
     }
-    
+
     public int getNumber()
     {
         return number;
     }
-    
+
     public void unclickedImage()
     {
         p.setIcon(unclickedCellIcon); 
     }
-    
+
     public JLabel getLabel()
     {
         return p;
     }
-    
+
     public boolean getClicked()
     {
         return isClicked;
     }
-    
+
     public void setClicked(boolean clicked)
     {
         isClicked = clicked;
     }
-    
+
     public boolean getFlagged()
     {
         return isFlagged;
     }
-    
+
     public void setFlagged(boolean flagged)
     {
         isFlagged = flagged;
     }
-    
+
     public boolean getBomb()
     {
         return hasBomb;
     }
-    
+
     public void addBomb()
     {
         hasBomb = true;
     }
-    
+
     public int getRow()
     {
         return r;
     }
-    
+
     public int getColumn()
     {
         return c;
+    }
+
+    public void addSurroundingEmptyTiles(ArrayList<Tile> surroundingEmptyTiles)
+    {
+        this.surroundingEmptyTiles = surroundingEmptyTiles;
+    }
+
+    private void openSurroundingEmptyTiles()
+    {
+        for(Tile emptyTile : surroundingEmptyTiles)
+        {
+            emptyTile.show();
+        }
     }
 }

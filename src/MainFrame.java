@@ -10,11 +10,13 @@ public class MainFrame
 {
     private JFrame mainFrame;
     private GameBoard gameBoard;
+    private Sound backgroundMusic;
 
     public MainFrame()
     {
         mainFrame = new JFrame("Extreme Minsweeper");
         gameBoard = new GameBoard();
+        backgroundMusic = new Sound("Bomb.wav");
     }
 
     /**
@@ -30,6 +32,7 @@ public class MainFrame
         mainFrame.setVisible(true);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.pack();
+        backgroundMusic.loop();
     }
 
     /**

@@ -52,7 +52,7 @@ public class GameBoard
         
         constraints.gridx = 100;
         constraints.gridy = 0;
-        JLabel time = new JLabel();
+        final JLabel time = new JLabel();
         secondPassed = 0;
         GameBoardRootPanel.add(time, constraints);
         TimerTask task = new TimerTask() 

@@ -15,9 +15,9 @@ import java.util.TimerTask;
  */
 public class GameBoard
 {
-    private final int WIDTH = 10; //8
-    private final int HEIGHT = 10; //8
-    private final int NUM_BOMBS = 16; //16
+    private final int WIDTH = 9; //8
+    private final int HEIGHT = 9; //8
+    private final int NUM_BOMBS = 10; //16
     private JPanel GameBoardRootPanel;
     private Tile[][] tiles;
     private ArrayList<Tile> cellsWithBombs; //we need the cell class for this to work
@@ -49,13 +49,16 @@ public class GameBoard
         //GameBoardRootPanel.setPreferredSize(new Dimension(HEIGHT, WIDTH));
         GameBoardRootPanel.setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
+        
         constraints.gridx = 100;
         constraints.gridy = 0;
         JLabel time = new JLabel();
         secondPassed = 0;
         GameBoardRootPanel.add(time, constraints);
-        TimerTask task = new TimerTask() {
-                public void run() {
+        TimerTask task = new TimerTask() 
+        {
+                public void run() 
+                {
                     time.setText("    Time:   " + secondPassed);
                     secondPassed++;
                 }
@@ -66,8 +69,11 @@ public class GameBoard
         JLabel remaining = new JLabel();
         constraints.gridx = 100;
         constraints.gridy = 100;
+
         remaining.setText("Bombs Remaining: " + flagRemaining);
         GameBoardRootPanel.add(remaining, constraints);
+
+
 
         for(int r = 0; r < tiles.length; r++)
         {
@@ -76,7 +82,7 @@ public class GameBoard
                 constraints.fill = GridBagConstraints.HORIZONTAL;
                 constraints.gridx = r;
                 constraints.gridy = c;
-                tiles[r][c] = new Tile(r, c); //placeholder
+                tiles[r][c] = new Tile(r, c);
                 tiles[r][c].clickListener();
                 GameBoardRootPanel.add(tiles[r][c].getLabel(), constraints);
             }
@@ -85,12 +91,12 @@ public class GameBoard
         {
             int r = (int) (Math.random() * HEIGHT);
             int c = (int) (Math.random() * WIDTH);
-            while(tiles[r][c].getBomb())  //placeholder
+            while(tiles[r][c].getBomb())
             {
                 r = (int) (Math.random() * HEIGHT);
                 c = (int) (Math.random() * WIDTH);
             }
-            tiles[r][c].addBomb(); //placeholder
+            tiles[r][c].addBomb();
             cellsWithBombs.add(tiles[r][c]);
         }
         for(int r = 0; r < HEIGHT; r++)
@@ -99,8 +105,8 @@ public class GameBoard
             {
                 if(!tiles[r][c].getBomb())
                     tiles[r][c].setNumber(numSurroundingBombs(r,c));
-                //GameBoardRootPanel[r][c] = ; //this may not work, since it is a different object
-                //GameBoardRootPanel.add(tiles[r][c].getLabel()); //check this. it probably won't work
+                else
+                    tiles[r][c].addBombList(cellsWithBombs);
             }
         }
         for(int r = 0; r < HEIGHT; r++) //adds the list of surrounding empty tiles to each empty tile
@@ -196,7 +202,7 @@ public class GameBoard
         {
             for(int r = Math.max(0, row - 1); r < Math.min(row + 2, HEIGHT); r++) //goes through all adjacent tiles to check if they contain bombs
             {
-                for(int c = Math.max(0, col - 1); c < Math.min(row + 2, WIDTH); c++)
+                for(int c = Math.max(0, col - 1); c < Math.min(col + 2, WIDTH); c++)
                 {
                     if(!tiles[r][c].getBomb() && (r != row || c != col) /*&& !surroundingEmptyTiles.contains(tiles[r][c])*/) //if the tile does not have a bomb
                     {

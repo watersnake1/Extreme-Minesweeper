@@ -30,6 +30,8 @@ public class Tile
     private JFrame tile;
     private JLabel p;
     private ArrayList<Tile> surroundingEmptyTiles;
+    private ArrayList<Tile> tilesWithBombs;
+    private boolean firstClick;
     public Tile(int r, int c)
     {
         unclickedCellIcon = new ImageIcon("../images/UnclickedCell.png");
@@ -53,6 +55,8 @@ public class Tile
         this.c = c;
         hasBomb = false;
         surroundingEmptyTiles = new ArrayList<Tile>();
+        tilesWithBombs = new ArrayList<Tile>();
+        firstClick = true;
         clickListener();
     }
 
@@ -87,15 +91,9 @@ public class Tile
             {
                 public void mouseClicked(MouseEvent e)
                 {  
-
-                }
-
-                public void mousePressed(MouseEvent e)
-                {
                     if(SwingUtilities.isLeftMouseButton(e))
                     {
                         show();
-                        openSurroundingEmptyTiles();
                     }
                     else if(SwingUtilities.isRightMouseButton(e) && !isFlagged && !isClicked)
                     {
@@ -109,6 +107,10 @@ public class Tile
                     }
                 }
 
+                public void mousePressed(MouseEvent e)
+                {
+
+                }
                 public void mouseReleased(MouseEvent e)
                 {
 
@@ -134,12 +136,13 @@ public class Tile
 
     public void show()
     {
-        if(!isFlagged)
+        if(!isFlagged && !isClicked)
         {
             isClicked = true;
             if(hasBomb)
             {
                 p.setIcon(bombedCellIcon);
+                openAllBombs();
             }
             else
             {
@@ -153,7 +156,8 @@ public class Tile
                     case 6: p.setIcon(sixCellIcon); break;
                     case 7: p.setIcon(sevenCellIcon); break;
                     case 8: p.setIcon(eightCellIcon); break;
-                    default: p.setIcon(clickedCellIcon); break;
+                    default: p.setIcon(clickedCellIcon); 
+                            openSurroundingEmptyTiles(); break;
                 }
             }
         }
@@ -224,11 +228,24 @@ public class Tile
         this.surroundingEmptyTiles = surroundingEmptyTiles;
     }
 
+    public void addBombList(ArrayList<Tile> tilesWithBombs)
+    {
+        this.tilesWithBombs = tilesWithBombs;
+    }
+
     private void openSurroundingEmptyTiles()
     {
         for(Tile emptyTile : surroundingEmptyTiles)
         {
             emptyTile.show();
+        }
+    }
+
+    private void openAllBombs()
+    {
+        for(Tile bombTile : tilesWithBombs)
+        {
+            bombTile.show();
         }
     }
 }

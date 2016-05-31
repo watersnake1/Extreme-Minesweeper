@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.net.URL;
 import java.util.ArrayList;
+import javax.swing.SwingUtilities;
 
 public class Tile
 {
@@ -143,6 +144,8 @@ public class Tile
             {
                 p.setIcon(bombedCellIcon);
                 openAllBombs();
+                JOptionPane.showMessageDialog(this.getLabel(), "Game Over");
+                System.exit(0);
             }
             else
             {

@@ -42,7 +42,8 @@ public class MainFrame
         boolean val = true;
         while(val)
         {
-            try {
+            try 
+            {
                 gameBoard.getGameBoardRootPanel().updateUI();
                 Thread.sleep(1000);
             }

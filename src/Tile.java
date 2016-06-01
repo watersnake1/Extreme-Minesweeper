@@ -10,6 +10,7 @@ import javax.swing.SwingUtilities;
 
 public class Tile
 {
+    private boolean clickOne;
     private boolean isFlagged;
     private boolean hasBomb;
     private int r;
@@ -60,6 +61,7 @@ public class Tile
         surroundingEmptyTiles = new ArrayList<Tile>();
         tilesWithBombs = new ArrayList<Tile>();
         firstClick = true;
+        clickOne = true;
         clickListener();
     }
 
@@ -113,15 +115,38 @@ public class Tile
                         });
                         thread.start();
                     }
-                    else if(SwingUtilities.isRightMouseButton(e) && !isFlagged && !isClicked)
+                    else if(SwingUtilities.isRightMouseButton(e) && !isClicked)
                     {
-                        p.setIcon(flaggedCellIcon);
-                        isFlagged = true;
-                    }
-                    else if(SwingUtilities.isRightMouseButton(e) && isFlagged && !isClicked)
-                    {
-                        p.setIcon(hoveredCellIcon);
-                        isFlagged = false;
+
+                        if(clickOne)
+                        {
+                            clickOne = false;
+                            if(!isFlagged)
+                            {
+                                System.out.println("flagged");
+                                p.setIcon(flaggedCellIcon);
+                                isFlagged = true;
+                            }
+                            else
+                            {
+                                System.out.println("unflagged");
+                                p.setIcon(hoveredCellIcon);
+                                isFlagged = false;
+                            }
+                            Thread thread = new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Sound click = new Sound("FlagSound.wav");
+                                    click.play();
+                                }
+                            });
+                            thread.start();
+                        }
+                        else
+                        {
+                            System.out.println("no flag");
+                            clickOne = true;
+                        }
                     }
                 }
 
@@ -129,6 +154,7 @@ public class Tile
                 {
 
                 }
+
                 public void mouseReleased(MouseEvent e)
                 {
 
@@ -164,6 +190,14 @@ public class Tile
             if(hasBomb)
             {
                 p.setIcon(bombedCellIcon);
+                Thread thread = new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Sound click = new Sound("Bomb.wav");
+                                click.play();
+                            }
+                        });
+                        thread.start();
                 openAllBombs();
                 JOptionPane.showMessageDialog(this.getLabel(), "Game Over");
                 System.exit(0);

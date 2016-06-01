@@ -16,7 +16,7 @@ public class MainFrame
     {
         mainFrame = new JFrame("Extreme Minsweeper");
         gameBoard = new GameBoard();
-        backgroundMusic = new Sound("Bomb.wav");
+        backgroundMusic = new Sound("Background_music_smm.wav");
     }
 
     /**

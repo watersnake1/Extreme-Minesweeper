@@ -1,3 +1,4 @@
+import javax.sound.sampled.SourceDataLine;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -33,6 +34,7 @@ public class Tile
     private ArrayList<Tile> surroundingEmptyTiles;
     private ArrayList<Tile> tilesWithBombs;
     private boolean firstClick;
+
     public Tile(int r, int c)
     {
         unclickedCellIcon = new ImageIcon("../images/UnclickedCell.png");
@@ -61,6 +63,10 @@ public class Tile
         clickListener();
     }
 
+    /**
+     * Main method; testing purposes only
+     * @param args
+     */
     public static void main(String [] args)
     {
         Tile newTile = new Tile(2,3);
@@ -86,6 +92,9 @@ public class Tile
         tile.setVisible(true);
     }
 
+    /**
+     * Listens for and handles all click events for the tile
+     */
     public void clickListener()
     {
         p.addMouseListener(new MouseListener()
@@ -95,6 +104,14 @@ public class Tile
                     if(SwingUtilities.isLeftMouseButton(e))
                     {
                         show();
+                        Thread thread = new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Sound click = new Sound("ClickSound.wav");
+                                click.play();
+                            }
+                        });
+                        thread.start();
                     }
                     else if(SwingUtilities.isRightMouseButton(e) && !isFlagged && !isClicked)
                     {
@@ -135,6 +152,10 @@ public class Tile
             });
     }
 
+    /**
+     * does what the tile needs to go when it is clicked, determines which number it needs to display depending
+     * on the number of bombs that are located around it
+     */
     public void show()
     {
         if(!isFlagged && !isClicked)

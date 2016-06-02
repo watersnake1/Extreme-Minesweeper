@@ -58,6 +58,10 @@ public class MainFrame
 
     }
 
+    /**
+     * This just sets everything up that has been already made
+     * Opens up the JFrame 
+     **/
     public static void main(String[] args)
     {
         MainFrame frame = new MainFrame();

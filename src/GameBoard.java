@@ -18,7 +18,7 @@ public class GameBoard
     private JPanel GameBoardRootPanel;
     private Tile[][] tiles;
     private ArrayList<Tile> cellsWithBombs; //we need the cell class for this to work
-    private ArrayList<Tile> openCells;
+    private ArrayList<Tile> emptyCells;
     private static int secondPassed;
     private int flagRemaining;
 
@@ -32,7 +32,7 @@ public class GameBoard
 
         tiles = new Tile[HEIGHT][WIDTH]; //sets the grid of squares
         cellsWithBombs = new ArrayList<Tile>();
-        openCells = new ArrayList<Tile>();
+        emptyCells = new ArrayList<Tile>();
         secondPassed = 0;
         flagRemaining = NUM_BOMBS;
     }
@@ -106,7 +106,10 @@ public class GameBoard
             for(int c = 0; c < WIDTH; c++)
             {
                 if(!tiles[r][c].getBomb())
+                {
                     tiles[r][c].setNumber(numSurroundingBombs(r,c));
+                    emptyCells.add(tiles[r][c]);
+                }
                 else
                     tiles[r][c].addBombList(cellsWithBombs);
             }
@@ -116,36 +119,13 @@ public class GameBoard
             for(int c = 0; c < WIDTH; c++)
             {
                 if(!tiles[r][c].getBomb())
+                {
                     tiles[r][c].addSurroundingEmptyTiles(findSurroundingEmptyTiles(r,c));
+                    tiles[r][c].addEmptyList(emptyCells);
+                }
 
                 //GameBoardRootPanel[r][c] = ; //this may not work, since it is a different object
                 //GameBoardRootPanel.add(tiles[r][c].getLabel()); //check this. it probably won't work
-            }
-        }
-    }
-    
-    /**
-     * This method after a space has been clicked checks for other empty boxes
-     * It will open all the boxes until it runs into a wall of numbers
-     **/
-    public void revealSpaces(int row, int col)
-    {
-        tiles[row][col].show(); //add the show method to the Tile class.
-        openCells.add(tiles[row][col]);
-        if(tiles[row][col].getBomb())
-            System.out.println("This code has yet to be implemented!");
-
-        else if(numSurroundingBombs(row, col) == 0)
-        {
-            for(int r = Math.max(0, row - 1); r < Math.min(row + 1, HEIGHT); r++)
-            {
-                for(int c = Math.max(0, col - 1); c < Math.min(row + 1, WIDTH); c++)
-                {
-                    if((r != row || c != col) && !tiles[r][c].getClicked()) // add the isOpen method to the Tile class.
-                    {
-                        revealSpaces(r,c);
-                    }
-                }
             }
         }
     }
@@ -170,31 +150,6 @@ public class GameBoard
             }
         }
         return surroundingBombs;
-    }
-
-    public void checkNewClicks()
-    {
-        for(int r = 0; r < HEIGHT; r++)
-        {
-            for(int c = 0; c < WIDTH; c++)
-            {
-                if(tiles[r][c].getClicked())
-                {
-                    System.out.println("this is working");
-                    boolean inList = false;
-                    for(Tile t : openCells)
-                    {
-                        if(t.getColumn() == c && t.getRow() == r)
-                            inList = true;
-                    }
-                    if(!inList)
-                    {
-                        revealSpaces(r,c);
-                    }
-                }
-
-            }
-        }
     }
 
     /**

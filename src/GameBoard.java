@@ -24,6 +24,7 @@ public class GameBoard
     private ArrayList<Tile> openCells;
     private static int secondPassed;
     private int flagRemaining;
+    private Timer timer;
 
     /**
      * The icons and labels are being created in the gameboard class for the sake of testing, normally there would
@@ -38,6 +39,7 @@ public class GameBoard
         openCells = new ArrayList<Tile>();
         secondPassed = 0;
         flagRemaining = NUM_BOMBS;
+        timer = new Timer();
     }
 
     /**
@@ -49,28 +51,16 @@ public class GameBoard
         //GameBoardRootPanel.setPreferredSize(new Dimension(HEIGHT, WIDTH));
         GameBoardRootPanel.setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
-        
+        timerTasks();
         constraints.gridx = 100;
         constraints.gridy = 0;
-        final JLabel time = new JLabel();
-        secondPassed = 0;
-        GameBoardRootPanel.add(time, constraints);
-        TimerTask task = new TimerTask() 
-        {
-                public void run() 
-                {
-                    time.setText("    Time:   " + secondPassed);
-                    secondPassed++;
-                }
-            };
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(task,1000,1000);
+
         
         JLabel remaining = new JLabel();
         constraints.gridx = 100;
         constraints.gridy = 100;
 
-        remaining.setText("Bombs Remaining: " + flagRemaining);
+        remaining.setText("Number of bombs: " + flagRemaining);
         GameBoardRootPanel.add(remaining, constraints);
 
 
@@ -232,6 +222,31 @@ public class GameBoard
                 }
             }
         }
+    }
+
+    public void timerTasks()
+    {
+        GridBagConstraints constraints = new GridBagConstraints();
+
+        constraints.gridx = 100;
+        constraints.gridy = 0;
+        final JLabel time = new JLabel();
+        secondPassed = 0;
+        GameBoardRootPanel.add(time, constraints);
+        TimerTask task = new TimerTask()
+        {
+            public void run()
+            {
+                time.setText("    Time:   " + secondPassed);
+                secondPassed++;
+            }
+        };
+        timer.scheduleAtFixedRate(task,1000,1000);
+    }
+
+    public Timer getTimer()
+    {
+        return timer;
     }
 
 }

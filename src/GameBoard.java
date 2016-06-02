@@ -215,4 +215,23 @@ public class GameBoard
         }
         return surroundingEmptyTiles;
     }
+
+    /**
+     * Lowers the count of remaining bombs whenever an undiscovered bomb is flagged
+     */
+    public void decrementBombCount()
+    {
+        for(int r = 0; r < tiles.length; r++)
+        {
+            for(int c = 0; c < tiles[r].length; c++)
+            {
+                if (tiles[r][c].getBombAndFlag())
+                {
+                    flagRemaining--;
+                    getGameBoardRootPanel().updateUI();
+                }
+            }
+        }
+    }
+
 }

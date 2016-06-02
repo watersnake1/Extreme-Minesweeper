@@ -1,3 +1,5 @@
+
+
 import javax.swing.JFrame;
 import java.awt.Dimension;
 import java.lang.String;
@@ -30,7 +32,7 @@ public class MainFrame
         mainFrame.setResizable(true);
         mainFrame.add(gameBoard.getGameBoardRootPanel());
         mainFrame.setVisible(true);
-        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         mainFrame.pack();
         backgroundMusic.loop();
     }
@@ -60,7 +62,7 @@ public class MainFrame
 
     public static void main(String[] args)
     {
-        MainFrame frame = new MainFrame();
-        frame.createAndShowGUI();
+        Menu m = new Menu();
+        m.createAndShowGUI();
     }
 }

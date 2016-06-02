@@ -34,6 +34,7 @@ public class Tile
     private JLabel p;
     private ArrayList<Tile> surroundingEmptyTiles;
     private ArrayList<Tile> tilesWithBombs;
+    private ArrayList<Tile> emptyTiles;
     private boolean firstClick;
 
     public Tile(int r, int c)
@@ -60,6 +61,7 @@ public class Tile
         hasBomb = false;
         surroundingEmptyTiles = new ArrayList<Tile>();
         tilesWithBombs = new ArrayList<Tile>();
+        emptyTiles = new ArrayList<Tile>();
         firstClick = true;
         clickOne = true;
         clickListener();
@@ -217,6 +219,12 @@ public class Tile
                     default: p.setIcon(clickedCellIcon); 
                             openSurroundingEmptyTiles(); break;
                 }
+                if(hasWon())
+                {
+                    openAllBombs();
+                    JOptionPane.showMessageDialog(this.getLabel(), "You Win");
+                    System.exit(0);
+                }
             }
         }
     }
@@ -291,6 +299,11 @@ public class Tile
         this.tilesWithBombs = tilesWithBombs;
     }
 
+    public void addEmptyList(ArrayList<Tile> emptyTiles)
+    {
+        this.emptyTiles = emptyTiles;
+    }
+
     private void openSurroundingEmptyTiles()
     {
         for(Tile emptyTile : surroundingEmptyTiles)
@@ -305,5 +318,15 @@ public class Tile
         {
             bombTile.show();
         }
+    }
+
+    private boolean hasWon()
+    {
+        for(Tile emptyTile : emptyTiles)
+        {
+            if(!emptyTile.getClicked())
+                return false;
+        }
+        return true;
     }
 }

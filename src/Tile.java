@@ -4,7 +4,6 @@ import java.awt.event.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.net.URL;
-import java.util.ArrayList;
 
 public class Tile
 {
@@ -13,6 +12,7 @@ public class Tile
     private int r;
     private int c;
     private boolean isClicked;
+    public static boolean isFirstClick;
     private int number;
     private ImageIcon unclickedCellIcon;
     private ImageIcon clickedCellIcon;
@@ -29,7 +29,6 @@ public class Tile
     private ImageIcon eightCellIcon;
     private JFrame tile;
     private JLabel p;
-    private ArrayList<Tile> surroundingEmptyTiles;
     public Tile(int r, int c)
     {
         unclickedCellIcon = new ImageIcon("../images/UnclickedCell.png");
@@ -52,8 +51,6 @@ public class Tile
         this.r = r;
         this.c = c;
         hasBomb = false;
-        surroundingEmptyTiles = new ArrayList<Tile>();
-        clickListener();
     }
     
     public static void main(String [] args)
@@ -63,11 +60,11 @@ public class Tile
         newTile.setTile();
         newTile.clickListener();
         Tile newTile2 = new Tile(3,3);
-        newTile2.addBomb();
-        newTile2.setTile();
-        newTile2.clickListener();     
+        newTile.addBomb();
+        newTile.setTile();
+        newTile.clickListener();     
     }
-
+    
     public void setTile()
     {
         tile = new JFrame("wow");
@@ -87,14 +84,15 @@ public class Tile
         {
             public void mouseClicked(MouseEvent e)
             {  
-            
+               
             }
             public void mousePressed(MouseEvent e)
             {
-                if(SwingUtilities.isLeftMouseButton(e))
+                if(SwingUtilities.isLeftMouseButton(e) && !isFlagged)
                 {
+                    isClicked = true;
                     show();
-                    openSurroundingEmptyTiles();
+                    
                 }
                 else if(SwingUtilities.isRightMouseButton(e) && !isFlagged && !isClicked)
                 {
@@ -193,6 +191,8 @@ public class Tile
         return isFlagged;
     }
     
+    
+    
     public void setFlagged(boolean flagged)
     {
         isFlagged = flagged;
@@ -208,26 +208,18 @@ public class Tile
         hasBomb = true;
     }
     
+    public void removeBomb()
+    {
+        hasBomb = false;
+    }
+    
     public int getRow()
     {
         return r;
     }
     
-    public int getCol()
+    public int getColumn()
     {
         return c;
-    }
-
-    public void addSurroundingEmptyTiles(ArrayList<Tile> surroundingEmptyTiles)
-    {
-        this.surroundingEmptyTiles = surroundingEmptyTiles;
-    }
-
-    private void openSurroundingEmptyTiles()
-    {
-        for(Tile emptyTile : surroundingEmptyTiles)
-        {
-            emptyTile.show();
-        }
     }
 }

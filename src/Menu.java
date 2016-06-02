@@ -1,4 +1,4 @@
-
+import sun.applet.Main;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,7 +25,6 @@ public class Menu {
 
    public void createAndShowGUI()
    {
-      frame.setVisible(true);
       frame.setPreferredSize(new Dimension(640,360));
       frame.add(panel);
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,6 +32,8 @@ public class Menu {
       panel.add(titleLabel);
       panel.updateUI();
       frame.pack();
+      frame.setLocationRelativeTo(null);
+      frame.setVisible(true);
       labelClickListener();
    }
 
@@ -41,7 +42,9 @@ public class Menu {
       titleLabel.addMouseListener(new MouseListener() {
          @Override
          public void mouseClicked(MouseEvent e) {
-            mainFrame.createAndShowGUI();
+            MainFrame frame = new MainFrame();
+            frame.createAndShowGUI();
+
          }
 
          @Override

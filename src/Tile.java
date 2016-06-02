@@ -8,6 +8,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import javax.swing.SwingUtilities;
 
+/**
+ * This class is an object class that has several properties
+ * These properties include clickability, flagability, holding a bomb, having a number in the open tiles as accordingly
+ **/
 public class Tile
 {
     private boolean clickOne;
@@ -82,7 +86,10 @@ public class Tile
         newTile2.setTile();
         newTile2.clickListener();     
     }
-
+    
+    /**
+     * This class sets up the properties of a unclicked tile
+     **/
     public void setTile()
     {
         tile = new JFrame("wow");
@@ -304,6 +311,9 @@ public class Tile
         this.emptyTiles = emptyTiles;
     }
 
+    /**
+     * This method is made to open other empty tiles until it runs into a wall of numbers or the walls
+     **/
     private void openSurroundingEmptyTiles()
     {
         for(Tile emptyTile : surroundingEmptyTiles)
@@ -311,7 +321,10 @@ public class Tile
             emptyTile.show();
         }
     }
-
+    
+    /**
+     * if you click a bomb this method will show all of the other bomb tiles
+     **/
     private void openAllBombs()
     {
         for(Tile bombTile : tilesWithBombs)
@@ -319,7 +332,10 @@ public class Tile
             bombTile.show();
         }
     }
-
+    
+    /**
+     * This is the win condition method, so if all squares have been emptied and no bombs have been clicked you win
+     **/
     private boolean hasWon()
     {
         for(Tile emptyTile : emptyTiles)

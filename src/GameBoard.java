@@ -52,6 +52,10 @@ public class GameBoard
         final JLabel time = new JLabel();
         secondPassed = 0;
         GameBoardRootPanel.add(time, constraints);
+        /**
+         * This is a timer task
+         * its main purpose is to constantly check every second and then update the screen
+         **/
         TimerTask task = new TimerTask() 
         {
                 public void run() 
@@ -84,6 +88,7 @@ public class GameBoard
                 GameBoardRootPanel.add(tiles[r][c].getLabel(), constraints);
             }
         }
+        //This will go through the spaces, check for bombs and place them accordingly
         for(int i = 0; i < NUM_BOMBS; i++)
         {
             int r = (int) (Math.random() * HEIGHT);
@@ -118,7 +123,11 @@ public class GameBoard
             }
         }
     }
-
+    
+    /**
+     * This method after a space has been clicked checks for other empty boxes
+     * It will open all the boxes until it runs into a wall of numbers
+     **/
     public void revealSpaces(int row, int col)
     {
         tiles[row][col].show(); //add the show method to the Tile class.
@@ -140,7 +149,13 @@ public class GameBoard
             }
         }
     }
-
+    
+    /**
+     * This method will count the number of bombs a tile is touching
+     * That way we can display the number on screen
+     * @param row the row in which we are looking for surrounding bombs
+     * @param col the column in which we are looking for surrounding bombs
+     **/
     public int numSurroundingBombs(int row, int col)
     {
         int surroundingBombs = 0;
@@ -190,7 +205,11 @@ public class GameBoard
     {
         return GameBoardRootPanel;
     }
-
+    
+    /**
+     * This is the method used to find the empty surrounding spaces
+     * currently a bit lag intensive
+     **/
     private ArrayList<Tile> findSurroundingEmptyTiles(int row, int col)
     {
         ArrayList<Tile> surroundingEmptyTiles = new ArrayList<Tile>(); //creates an ArrayList to hold the empty tiles

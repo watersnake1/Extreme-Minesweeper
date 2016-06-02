@@ -6,12 +6,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * Created by Christian on 5/15/16.
- * This is just a preliminary version of what the full gameboard class would look like
- * basically, the gameboard class creates a jpanel, sets it up with all the clickable jlabels,
- * then when the frame class wants to display the panel it just gets reference to the panel from the
- * gameboard class. That way, extending swing classes is not necessary. This method could be applied to the
- * cell class as well......
+ * This is the gameboard class.
+ * It primarily serves as how we set up the different tile locations
+ * It also houses many of the different methods that we use to check the tiles with
  */
 public class GameBoard
 {

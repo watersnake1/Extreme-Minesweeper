@@ -132,13 +132,13 @@ public class Tile
                             clickOne = false;
                             if(!isFlagged)
                             {
-                                System.out.println("flagged");
+                                //System.out.println("flagged");
                                 p.setIcon(flaggedCellIcon);
                                 isFlagged = true;
                             }
                             else
                             {
-                                System.out.println("unflagged");
+                                //System.out.println("unflagged");
                                 p.setIcon(hoveredCellIcon);
                                 isFlagged = false;
                             }
@@ -153,7 +153,7 @@ public class Tile
                         }
                         else
                         {
-                            System.out.println("no flag");
+                            //System.out.println("no flag");
                             clickOne = true;
                         }
                     }
